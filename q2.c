@@ -1,34 +1,72 @@
-/*
+/*You are given an array prices where prices[i] is the price of a given stock on the ith day.
 
-Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.
 
-You may assume that each input would have exactly one solution, and you may not use the same element twice.
+Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
 
-You can return the answer in any order.*/
-#include<stdio.h>
 
-int main()
-{
-    int n,i,j;
-    scanf("%d",&n);
-    int arr[n];
-    for(i=0;i<n;i++)
-    {
-        scanf("%d",&arr[i]);
 
-    }
-    int target;
-    scanf("%d",&target);
-    for(i=0;i<n;i++)
-    {
-        for(j=i+1;j<n;j++)
-        {
-            if(arr[i]+arr[j]==target)
-            {
-                printf("%d %d",i,j);
-                return 0;
+Example 1:
+
+Input: prices = [7,1,5,3,6,4]
+Output: 5
+Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
+Note that buying on day 2 and selling on day 1 is not allowed because you must buy before you sell.
+Example 2:
+
+Input: prices = [7,6,4,3,1]
+Output: 0
+Explanation: In this case, no transactions are done and the max profit = 0.
+
+
+Constraints:
+
+1 <= prices.length <= 105
+0 <= prices[i] <= 104*/
+#include <stdio.h>
+
+int maxProfit(int prices[], int n) {
+    if (n <= 1)
+        return 0;
+
+    int minPrice = prices[0];
+    int maxProfit = 0;
+
+    for (int i = 1; i < n; i++) {
+
+        // Update minimum price
+        if (prices[i] < minPrice) {
+            minPrice = prices[i];
+        }
+        else {
+            int profit = prices[i] - minPrice;
+
+            // Update maximum profit
+            if (profit > maxProfit) {
+                maxProfit = profit;
             }
         }
     }
+
+    return maxProfit;
+}
+
+int main() {
+    int n;
+
+    // Input number of days
+    scanf("%d", &n);
+
+    int prices[n];
+
+    // Input stock prices
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &prices[i]);
+    }
+
+    int result = maxProfit(prices, n);
+
+    printf("%d\n", result);
+
     return 0;
 }
