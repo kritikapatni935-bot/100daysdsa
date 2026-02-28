@@ -1,0 +1,48 @@
+// Count Nodes in Linked List
+#include <stdio.h>
+#include <stdlib.h>
+
+// Define structure
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+// Function to create a new node
+struct Node* createNode(int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = value;
+    newNode->next = NULL;
+    return newNode;
+}
+
+int main() {
+    int n, value, count = 0;
+    struct Node *head = NULL, *temp = NULL, *newNode = NULL;
+
+    scanf("%d", &n);
+
+    for(int i = 0; i < n; i++) {
+        scanf("%d", &value);
+
+        newNode = createNode(value);
+
+        if(head == NULL) {
+            head = newNode;
+            temp = head;
+        } else {
+            temp->next = newNode;
+            temp = newNode;
+        }
+    }
+
+    temp = head;
+    while(temp != NULL) {
+        printf("%d ", temp->data);
+        count++;
+        temp = temp->next;
+    }
+
+    return 0;
+}
+// Day 23
